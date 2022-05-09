@@ -1,0 +1,5 @@
+uwsgi
+flask
+timeago
+requests
+maxminddb
