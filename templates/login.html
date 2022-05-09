@@ -1,0 +1,23 @@
+<!-- Coded by L1ghtM3n@protonmail.com -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Vulturi | Login</title>
+    <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/login.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/sweetalert.js') }}"></script>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+  </head>
+  <body>
+
+    <div class="login-page">
+      <div class="form">
+        <input type="text" placeholder="username" id="username_input"/>
+        <input type="password" placeholder="password" id="password_input"/>
+        <button onclick="Login();">login</button>
+      </div>
+    </div>
+
+    <div id="background"></div>
+  </body>
+</html>

